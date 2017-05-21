@@ -11,7 +11,7 @@ def parse_db_settings(db):
     """
     rv = {}
     for cluster in db:
-        for db_name, credentials in db[cluster].items():
+        for db_name, credentials in list(db[cluster].items()):
             item = 'pacific.db.{}.{}'.format(cluster, db_name)
             rv[item] = 'postgresql+psycopg2://{user}:{password}@:{port}/{database}?host={host}'.format(**credentials)
     return rv
@@ -25,7 +25,7 @@ def parse_apps(apps):
     :rtype: str
     """
     prepared = []
-    for app_name, attributes in apps.items():
+    for app_name, attributes in list(apps.items()):
         try:
             prepared.append('{}=>{}'.format(app_name, attributes['url_prefix']))
         except KeyError:

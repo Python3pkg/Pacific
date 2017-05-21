@@ -36,7 +36,7 @@ def get_session_factories(settings, options_prefix='pacific.db.'):
     :rtype: dict
     """
     session_factories = {}
-    for key, value in settings.items():
+    for key, value in list(settings.items()):
         if not key.startswith(options_prefix):
             continue
 
@@ -120,5 +120,5 @@ class RequestDbApi(object):
 
     def discard(self):
         """Close all sessions and return connections to the pool."""
-        for sess in self.sessions.values():
+        for sess in list(self.sessions.values()):
             sess.close()

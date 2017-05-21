@@ -9,7 +9,7 @@ def main(global_config, **settings):
     config.include('pacific.db')
 
     apps = get_apps_mapping(config)
-    for app_name, url_prefix in apps.items():
+    for app_name, url_prefix in list(apps.items()):
         config.include(app_name, url_prefix)
 
     #config.add_static_view('static', 'static', cache_max_age=3600)
